@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button onclick="addTask()">Add Task</button>
+        
+        <h2>Pending Tasks</h2>
+        <ul id="pendingTasks"></ul>
+
+        <h2>Completed Tasks</h2>
+        <ul id="completedTasks"></ul>
+    </div>
+
+    <script>
+        // Function to add a task
+function addTask() {
+    let taskInput = document.getElementById("taskInput");
+    let taskText = taskInput.value.trim();
+
+    if (taskText === "") {
+        alert("Please enter a task!");
+        return;
+    }
+
+    let taskItem = document.createElement("li");
+    taskItem.innerHTML = `
+        ${taskText}
+        <button onclick="completeTask(this)">✔</button>
+        <button onclick="deleteTask(this)">❌</button>
+    `;
+
+    document.getElementById("pendingTasks").appendChild(taskItem);
+    taskInput.value = "";
+}
+
+// Function to mark a task as complete
+function completeTask(button) {
+    let taskItem = button.parentElement;
+    taskItem.classList.add("completed");
+    document.getElementById("completedTasks").appendChild(taskItem);
+    button.remove(); // Remove the complete button after task is done
+}
+
+// Function to delete a task
+function deleteTask(button) {
+    let taskItem = button.parentElement;
+    taskItem.remove();
+}
+
+    </script>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 400px;
+    background: white;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+input {
+    width: 70%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 5px 0;
+    background: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.completed {
+    text-decoration: line-through;
+    background: #c3e6cb;
+}
+
+    </style>
+</body>
+</html>
